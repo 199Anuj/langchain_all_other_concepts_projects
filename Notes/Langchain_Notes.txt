@@ -1,0 +1,596 @@
+1. 🌟 What is LangChain?
+
+LangChain is a Python/JavaScript framework used to build applications powered by Large Language Models (LLMs) like GPT, Llama, Groq, etc.
+
+It helps you easily connect:
+
+Prompts
+
+LLM models
+
+Tools
+
+Memory
+
+Chains
+
+Agents
+
+External APIs
+
+Vector databases
+
+Structured output
+
+Retrieval systems
+
+So instead of writing everything manually, LangChain gives ready-made building blocks.
+
+🧩 Why Do We Need LangChain?
+
+LLMs alone only generate text.
+LangChain helps LLMs:
+
+✔ talk to external tools
+✔ store and use memory
+✔ split tasks into steps
+✔ connect multiple prompts
+✔ output structured JSON/Pydantic
+✔ process long documents
+✔ run conditional logic
+✔ perform RAG (Retrieval Augmented Generation)
+✔ act like agents with tools
+
+Basically, LangChain helps you build real AI applications.
+
+
+2. 🧱 Major Components of LangChain
+
+Below are the core building blocks every developer should know.
+
+1️⃣ Prompt Templates
+
+Used for building dynamic prompts with variables.
+
+from langchain_core.prompts import PromptTemplate
+
+prompt = PromptTemplate(
+    template="Write a summary about {topic}",
+    input_variables=["topic"]
+)
+
+2️⃣ LLMs (Model Wrappers)
+
+LangChain can call models from:
+
+OpenAI
+
+Groq
+
+Anthropic
+
+HuggingFace
+
+Google
+
+Local models
+
+Example: from langchain_groq import ChatGroq
+
+model = ChatGroq(model="llama-3.3-70b-versatile")
+
+
+3️⃣ Output Parsers
+
+Used to convert raw text into:
+
+string
+
+JSON
+
+Pydantic model
+
+structured output
+
+Example:
+
+String Output
+
+
+from langchain_core.output_parsers import StrOutputParser
+parser = StrOutputParser()
+
+
+4️⃣ RunnableChains (Chains)
+
+Chain means connecting components together:chain = prompt | model | parser
+result = chain.invoke({"topic": "AI"})
+
+Chains can be:
+
+Sequential (step by step)
+
+Parallel (multiple steps at once)
+
+Conditional (if/else)
+
+
+5️⃣ Agents
+
+Agents let LLMs:
+
+👉 decide actions
+👉 pick tools
+👉 execute tasks
+👉 loop until they find the answer
+
+For example:
+
+search Google
+
+call APIs
+
+do math
+
+read files
+
+run Python tools
+
+
+6️⃣ Memory
+
+Stores previous conversation so LLM behaves like chat.
+
+Types:
+
+Buffer Memory
+
+Summary Memory
+
+Entity Memory
+
+Conversation Token Buffer
+
+Makes chatbot feel "human-like".
+
+
+7️⃣ Tools
+
+Functions that the model can use, like:
+
+calculator
+
+search
+
+code execution
+
+custom python functions
+
+8️⃣ Retrievers (RAG)
+
+Retrievers fetch relevant documents from vector DBs:
+
+Pinecone
+
+Chroma
+
+FAISS
+
+Weaviate
+
+PGVector
+
+Used heavily in RAG apps.
+
+9️⃣ Document Loaders & Text Splitters
+
+For reading PDFs, websites, docs, etc.
+
+--------------------------------------------------
+3. ✅ What Are LangChain Models?
+
+In LangChain, Models are the core building blocks used to interact with language models (LLMs) or other AI models.
+LangChain provides a unified interface so you can plug in OpenAI, HuggingFace, Gemini, Groq, Ollama, or any other model without changing your code.
+
+LangChain mainly has three types of models:
+
+1️⃣ LLMs (Large Language Models) – Text Completion Models
+
+These models take a string input and return a string output.
+Example providers:
+
+OpenAI GPT
+
+Groq Llama
+
+HuggingFace models
+
+Ollama
+
+
+2️⃣ ChatModels – Structured Chat Message Models
+
+These models work with messages instead of plain text.
+
+LangChain defines message types like:
+
+SystemMessage
+
+HumanMessage
+
+AIMessage
+
+ChatModels understand multi-turn prompts, history, and roles.
+
+Example providers:
+
+OpenAI ChatCompletion
+
+Groq Chat Models
+
+Gemini Chat
+
+Mistral Chat
+
+Inout - [
+  SystemMessage("You are a helpful assistant."),
+  HumanMessage("Write a poem about stars")
+]
+
+Output - AIMessage("The stars dance softly in the night...")
+
+
+3️⃣ Embedding Models
+
+These convert text into vectors (lists of numbers).
+Used for:
+
+Semantic search
+
+RAG (Retrieval-Augmented Generation)
+
+Clustering
+
+Similarity comparisons
+
+Example providers:
+
+HuggingFace Embedding Models
+
+OpenAI Embeddings
+
+Google Embeddings
+
+SentenceTransformers
+---------------------------------------------
+
+4. ✅ Difference Between LLMs and ChatModels in LangChain
+
+LangChain supports two major text-generation model types:
+
+1️⃣ LLMs (Large Language Models)
+
+✔ Work with plain text strings
+✔ Input → string
+✔ Output → string
+
+Example: llm.invoke("Write a poem about the moon")
+
+
+LLMs do not understand chat roles (system/human/assistant).
+They just generate output based on raw text.
+
+2️⃣ ChatModels
+
+✔ Work with structured messages
+✔ Each message has a role:
+
+system
+
+user (human)
+
+assistant (AI)
+
+Example: chat.invoke([
+    ("system", "You are a helpful assistant."),
+    ("user", "Write a poem about the moon.")
+])
+
+
+⭐ Can ChatModels take string input like LLMs?
+Yes — LangChain automatically converts a string into a HumanMessage.
+
+Example: chat.invoke("Tell me a joke")
+
+This internally becomes: [HumanMessage(content="Tell me a joke")]
+
+0---------------------------------------------------------------------------------------
+
+5. ✅ What Are Prompts in LangChain?
+
+In LangChain, prompts are structured inputs given to LLMs / ChatModels to guide their behavior.
+
+A prompt is not just text — LangChain turns prompts into reusable, composable Prompt Templates.
+
+✔ Purpose of Prompts
+
+Control model behavior
+
+Inject instructions
+
+Format dynamic inputs
+
+Reduce prompt-writing repetition
+
+Enable consistent outputs for agents, chains, and tools
+
+
+✅ 🔹 Static Prompts vs Dynamic Prompts
+1️⃣ Static Prompts
+
+A static prompt is fixed text only.
+It does NOT take variables, does not change, and is written as plain string.
+
+prompt = "Write a poem about artificial intelligence."
+
+➡ Always the same
+➡ Not reusable
+➡ No placeholders
+➡ Cannot accept user input programmatically
+
+2️⃣ Dynamic Prompts
+
+A dynamic prompt changes based on variables inserted at runtime.
+
+You define variables like {topic}, {tone}, {language}, etc.
+
+🟦 Why Prompt Templates are Used in LangChain? (Very Important for Interviews)
+
+Here are the main reasons:
+
+✔ 1. To Make Prompts Reusable
+
+You don't want to rewrite the same prompt again and again.
+
+
+✔ 2. To Insert Dynamic Data Easily
+
+Prompt Templates allow you to pass dynamic values:
+
+✔ user input
+✔ database results
+✔ extracted text
+✔ chain outputs
+
+3. To Enforce Structured Prompting
+
+Prompt Templates can include model output instructiins:
+
+format_instructions
+
+JSON schema
+
+Pydantic structures
+
+4.  To Support Complex Chains & Agents
+
+Every chain needs prompts with placeholders:
+
+RAG chains
+
+Classification pipelines
+
+Sentiment → Generate reply pipelines
+
+Agents using tools
+
+PromptTemplate makes it easy to pass outputs between chains.
+
+Example -> from langchain_core.prompts import PromptTemplate
+
+prompt = PromptTemplate(
+    template="Write a short poem about {topic}.",
+    input_variables=["topic"]
+)
+
+formatted_prompt = prompt.format(topic="artificial intelligence")
+
+print(formatted_prompt)
+
+--------------------------------------------
+
+6. 🟦 What Is Structured Output in LangChain?
+
+Structured Output means telling the LLM to return results in a strict, machine-readable format such as:
+
+JSON
+
+Pydantic model
+
+Dictionary
+
+Typed schema
+
+This is used when you want guaranteed structure such as:
+✔ classification
+✔ extraction
+✔ sentiment analysis
+✔ structured summaries
+✔ database filling
+✔ agent tool outputs
+
+🟦 Two Ways LangChain Supports Structured Output
+✅ 1. Using Model-Native Structured Output (RECOMMENDED)
+
+Some LLMs can generate structured JSON natively.
+
+These models can follow structured formats very reliably because the model itself supports JSON mode or tool calling.
+
+Examples of models that support structured output:
+Model	Support Type
+OpenAI GPT-4o, GPT-4.1, GPT-3.5 Turbo	JSON Mode + Function Calling
+Groq LLaMA 3.1 / 3.3 models	JSON Structured Output
+Anthropic Claude 3 models	Tool Calling + JSON
+Gemini Flash / Pro	Function calling
+Mistral models	JSON support varies
+✅ 2. Using LangChain Output Parsers (Works with ANY model)
+
+Even if the model does not support JSON mode natively, LangChain output parsers can enforce structure.
+
+🟦 Main Output Parsers in LangChain
+
+Here are the most important LangChain output parsers:
+
+⭐ 1. StrOutputParser
+
+✔ Returns raw text
+✔ Used when you don’t need structure
+
+Returns the Output in string format
+
+
+⭐ 2. PydanticOutputParser (Most Important)
+
+✔ Converts model output into a Pydantic class
+✔ Automatically generates format instructions
+
+we va inforce schema and even validation
+
+⭐ 3. JsonOutputParser
+
+✔ Ensures JSON only
+✔ Useful when you want plain schemas
+
+inforces json scehma to output of the model. we have to provide schema as well which we wnat in the output.
+
+But we cannot impose any validation in the output. fore xample sentiment analysis. tehe value should be ositive or negative
+
+-------------------------------------------------------------------------------
+7. 🚀 What Are Chains in LangChain?
+
+A Chain in LangChain is a pipeline that connects multiple steps together, such as:
+
+Taking input
+
+Formatting prompts
+
+Calling LLMs/chat models
+
+Parsing output
+
+Using tools
+
+Running conditional logic
+
+Combining results
+
+Think of a chain like a workflow, where each block does something and passes output to the next.
+
+There are three types of chain -:
+
+A) Sequencial chains.
+Executes steps one after another. 
+EG -> chain = prompt | model | parser
+
+B) Parallel Chains.
+Runs different chains based on a condition.
+branch = RunnableBranch(
+    (lambda x: len(x.split()) > 200, summary_chain),
+    RunnablePassthrough()
+)
+
+C) Conditional Chains
+Runs multiple chains at the same time and returns combined output.
+chain = RunnableParallel({
+    'summary'=summary_chain,
+    'sentiment'=sentiment_chain
+})
+------------------------------------------------------------
+8. Runnables ->
+In LangChain, Runnables are the core building blocks used to create pipelines, chains, and workflows in the new LangChain Expression Language (LCEL).
+They are flexible, composable units that represent anything that can be executed — a model call, a prompt, a function, a branching operation, or an entire chain.
+
+✅ What Are Runnables?
+
+A Runnable is simply something you can “run” (execute) with .invoke(), .batch(), or .stream().
+
+Examples of runnables:
+
+Prompt Templates
+
+LLMs / ChatModels
+
+Output Parsers
+
+Functions (via RunnableLambda)
+
+Branching
+
+Sequences / pipelines
+
+Maps
+
+Parallel execution
+
+Retrievers
+
+Tool Calls
+
+⭐ Why Runnables Are Important
+
+Before LCEL, LangChain had many different chain types.
+
+Now:
+
+Everything is a Runnable.
+we dont need to remember different chains but just create runnables accodinging to our requirement which creates chains and then we have to call invoke fucntion.
+
+🧩 Types of Runnables (Key Runnables in LangChain)
+
+Below are the most commonly used Runnables.
+
+1️⃣ RunnableLambda
+
+Used to wrap any Python function as a runnable.
+
+from langchain_core.runnables import RunnableLambda
+
+word_count = RunnableLambda(lambda x: len(x.split()))
+
+2️⃣ RunnableSequence
+
+A chain of multiple runnables (serial execution), using |.
+
+pipeline = prompt | model | parser
+
+This is just syntactic sugar for a sequence.
+
+3️⃣ RunnableBranch
+
+Implements if–else logic.
+
+from langchain_core.runnables import RunnableBranch
+
+branch_chain = RunnableBranch(
+    (lambda x: len(x.split()) > 200, long_prompt | model | parser),
+    default=short_prompt | model | parser
+)
+
+4️⃣ RunnableParallel (RunnableMap)
+
+Runs multiple runnables in parallel.
+
+from langchain_core.runnables import RunnableParallel
+
+parallel = RunnableParallel(
+    sentiment = model1,
+    summary = model2
+)
+
+5️⃣ RunnablePassthrough
+
+Passes input unchanged.
+
+Useful in branches.
+
+from langchain_core.runnables import RunnablePassthrough
