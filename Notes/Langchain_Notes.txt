@@ -594,3 +594,54 @@ Passes input unchanged.
 Useful in branches.
 
 from langchain_core.runnables import RunnablePassthrough
+
+
+--------------------------------------------------------------------
+9. Document Loaders in LangChain are utilities that load data from different sources (files, URLs, databases, APIs, etc.) and convert them into Document objects that LLMs can process.
+
+They are the first step in most LangChain pipelines (RAG, QA, summarization, indexing).
+
+✅ What are Document Loaders?
+
+A Document Loader:
+
+Reads data from a source
+
+Extracts the content
+
+Returns a list of Document objects
+
+Each Document contains:
+
+page_content → the actual text
+
+metadata → filename, URL, page number, etc.
+
+📌 Most Important Document Loaders in LangChain
+
+Here are the most commonly used & practical loaders:
+
+🔹 1. TextLoader
+
+Loads text files (.txt).
+
+🔹 2. CSVLoader
+
+Loads CSV files row-by-row.
+
+🔹 3. PDF Loaders
+
+Multiple options exist:
+
+→ PyPDFLoader
+
+Best for simple PDFs.
+
+
+🔹 4. WebBaseLoader
+
+Loads & scrapes webpage content.
+
+🔹 5. DirectoryLoader
+
+Loads ALL files from a folder.
