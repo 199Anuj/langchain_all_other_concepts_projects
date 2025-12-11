@@ -645,3 +645,86 @@ Loads & scrapes webpage content.
 🔹 5. DirectoryLoader
 
 Loads ALL files from a folder.
+------------------------------------------------------------------------------
+10. Text splitters are a core concept in LangChain and are used in almost every RAG pipeline, summarization pipeline, and LLM-based document processing workflow.
+
+Here is the complete, simple, clear explanation 👇
+
+✅ What Are Text Splitters?
+
+Text Splitters are utilities that break large text/documents into smaller chunks.
+
+LLMs (GPT, Llama, Gemini, Claude) have context limits, so you cannot pass very large documents directly.
+Text splitters divide documents into meaningful segments so they can be:
+
+indexed in vector databases
+
+searched using embeddings
+
+summarized efficiently
+
+fed to LLMs chunk by chunk
+
+🎯 Why Are Text Splitters Used? (Purpose)
+
+Text splitters help with:
+
+1️⃣ Avoiding Token Limit Errors
+
+LLMs cannot handle very long text, so splitting is required.
+
+2️⃣ Better Embedding Quality
+
+Small, clean chunks produce high-quality embeddings → better search accuracy.
+
+3️⃣ Maintaining Context
+
+Good splitters ensure chunks do not break mid-sentence or mid-paragraph.
+
+4️⃣ Efficient Retrieval in RAG
+
+Chunks act like "knowledge units" that the retriever uses.
+
+5️⃣ Faster Processing
+
+Working with small chunks improves speed/cost.
+
+⭐ Types of Text Splitters in LangChain
+
+Below is the complete list of important text splitters and when to use them.
+
+📌 1. Character-based Splitters
+
+Split text based on characters.
+
+📌 2. RecursiveCharacterTextSplitter (Most Recommended)
+
+The best general-purpose splitter.
+
+It tries splitting by:
+
+paragraphs
+
+sentences
+
+words
+
+characters
+
+Keeps natural boundaries.
+
+3. Recursive text splitters based on languafe like python markup language.
+
+It splits based on calss fucntions then paragraph words etc
+
+4. 📌 7. Semantic Splitters (Meaning-based)
+
+(Advanced, AI-powered)
+
+Names:
+
+SemanticTextSplitter
+
+SemanticChunker (newer versions)
+
+These use embeddings to split text by meaning.
