@@ -728,3 +728,12 @@ SemanticTextSplitter
 SemanticChunker (newer versions)
 
 These use embeddings to split text by meaning.
+----------------------------------------------------------------------
+11. 🧠 What are Vector Stores? (Plain English)
+
+A vector store is a special database that:
+
+Stores numbers (vectors) that represent the meaning of text, images, or other data
+and lets you find the most similar ones quickly.
+
+Instead of searching by keywords, it searches by meaning.

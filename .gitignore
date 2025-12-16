@@ -16,3 +16,15 @@ __pycache__/
 .env
 
 VectorStore/venv/
+
+# Vector stores / databases
+my_chroma_db/
+chroma_db/
+chromadb/
+
+
+my_chroma_db/chroma.sqlite3
+
+chroma.sqlite3
+
+VectorStore/venv311/
