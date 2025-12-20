@@ -737,3 +737,57 @@ Stores numbers (vectors) that represent the meaning of text, images, or other da
 and lets you find the most similar ones quickly.
 
 Instead of searching by keywords, it searches by meaning.
+-------------------------------------------------------------------
+12. 🔍 What is a Retriever?
+
+A retriever is an abstraction that:
+
+Takes a query (string)
+
+Returns relevant documents (Document objects)
+
+Does no generation, only retrieval
+
+Think of it as:
+
+“Given a question, find the most useful information to answer it.”
+
+❓ Why do we need Retrievers?
+
+LLMs:
+
+❌ Don’t know your private data
+
+❌ Hallucinate when knowledge is missing
+
+❌ Have limited context windows
+
+Retrievers solve this by:
+
+✅ Fetching relevant, factual context
+
+✅ Enabling up-to-date or private knowledge
+
+✅ Improving accuracy and grounding
+
+This is the backbone of RAG pipelines.
+
+🧠 Retriever vs Vector Store
+Component	Role
+
+| Component        | Role                                  |
+| ---------------- | ------------------------------------- |
+| **Vector Store** | Stores embeddings + similarity search |
+| **Retriever**    | Interface that queries the store      |
+| **LLM**          | Generates the final answer            |
+
+
+A retriever may sit on top of:
+
+Vector databases
+
+Search engines
+
+APIs
+
+Knowledge bases
